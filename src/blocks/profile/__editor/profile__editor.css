@@ -1,0 +1,25 @@
+.profile__editor {
+    background-image: url('../../../images/Pen.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    align-self: center;
+    border: 1px solid #fff;
+    padding: 0px;
+
+}
+
+.profile__editor:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+    .profile__editor {
+        width: 18px;
+        height: 18px;
+        background-size: 7.5px 7.5px;
+    }
+}
