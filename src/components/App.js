@@ -1,19 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
+
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+
+  function handleEditAvatarClick () {
+    setIsEditAvatarPopupOpen(true)
+  }
+
+  function handleEditProfileClick () {
+    setIsEditProfilePopupOpen(true)
+  }
+
+  function handleAddPlaceClick () {
+    setIsAddPlacePopupOpen(true)
+  }
+
   return (
     <div className="page">
   <Header />
-  <Main />
+  <Main 
+  onEditProfile = {handleEditProfileClick} 
+  onAddPlace = {handleAddPlaceClick}
+  onEditAvatar = {handleEditAvatarClick}
+  />
   <Footer /> 
-  <div className="popup profile-popup">
-    <div className="popup__container">
-      <button type="button" className="popup__close" aria-label="Закрыть" />
-      <h2 className="popup__title">Редактировать профиль</h2>
-      <form className="popup__form" name="data" noValidate="">
+  <PopupWithForm isOpen = {isEditProfilePopupOpen} name="profile" title="Редактировать профиль" buttonText="Сохранить">
         <input
           id="input-name"
           type="text"
@@ -36,17 +56,8 @@ function App() {
           maxLength={200}
         />
         <span className="popup__error description-name-error" />
-        <button type="submit" className="popup__submit">
-          Сохранить
-        </button>
-      </form>
-    </div>
-  </div>
-  <div className="popup popup_type_add-image">
-    <div className="popup__container">
-      <button type="button" className="popup__close" aria-label="Закрыть" />
-      <h2 className="popup__title">Новое место</h2>
-      <form className="popup__form" name="formImage" noValidate="">
+  </PopupWithForm>
+  <PopupWithForm isOpen = {isAddPlacePopupOpen} name="add-image" title="Новое место" buttonText="Создать">
         <input
           id="image-name"
           type="text"
@@ -67,35 +78,10 @@ function App() {
           placeholder="Ссылка на картинку"
         />
         <span className="popup__error url-address-error" />
-        <button type="submit" className="popup__submit">
-          Создать
-        </button>
-      </form>
-    </div>
-  </div>
-  <div className="popup popup_type_reveal-image">
-    <article className="popup__large-container">
-      <button type="button" className="popup__close" aria-label="Закрыть" />
-      <img src="#" className="popup__image" alt="" />
-      <p className="popup__description" />
-    </article>
-  </div>
-  <div className="popup popup-confirm-delete">
-    <div className="popup__container">
-      <button type="button" className="popup__close" aria-label="Закрыть" />
-      <h2 className="popup__title popup-confirm-delete__title">Вы уверены?</h2>
-      <form className="popup__form" name="formDeleteImage">
-        <button type="submit" className="popup__submit">
-          Да
-        </button>
-      </form>
-    </div>
-  </div>
-  <div className="popup popup-avatar">
-    <div className="popup__container">
-      <button type="button" className="popup__close" aria-label="Закрыть" />
-      <h2 className="popup__title">Обновить аватар</h2>
-      <form className="popup__form" name="formAvatar" noValidate="">
+      </PopupWithForm>
+  <ImagePopup />
+  <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" />
+  <PopupWithForm isOpen = {isEditAvatarPopupOpen} name="avatar" title="Обновить аватар" buttonText="Сохранить">
         <input
           id="url-avatar"
           type="url"
@@ -105,12 +91,7 @@ function App() {
           placeholder="Сменить фото"
         />
         <span className="popup__error url-avatar-error" />
-        <button type="submit" className="popup__submit">
-          Создать
-        </button>
-      </form>
-    </div>
-  </div>
+  </PopupWithForm>
   <template className="cards-template" />
   {/*  */}
     </div>

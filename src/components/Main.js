@@ -1,34 +1,20 @@
 
-export default function Main() {
 
-  function handleEditAvatarClick () {
-    const popup = document.querySelector('.popup-avatar');
-    popup.classList.add("popup_active")
-  }
-
-  function handleEditProfileClick () {
-    const popup = document.querySelector('.profile-popup');
-    popup.classList.add("popup_active")
-  }
-
-  function handleAddPlaceClick () {
-    const popup = document.querySelector('.popup_type_add-image');
-    popup.classList.add("popup_active")
-  }
+export default function Main(props) {
 
 
 
     return (
         <div className="content">
     <section className="profile">
-      <div onClick={handleEditAvatarClick} className="profile__image">
+      <div onClick={props.onEditAvatar} className="profile__image">
         <img className="profile__avatar" alt="фото Жак-Ив Кусто" />
       </div>
       <div className="profile__info">
         <div className="profile__edit">
           <h1 className="profile__title">Жак-Ив Кусто</h1>
           <button
-            onClick={handleEditProfileClick}
+            onClick={props.onEditProfile}
             className="profile__editor"
             type="button"
             aria-label="Редактировать профиль"
@@ -37,7 +23,7 @@ export default function Main() {
         <p className="profile__subtitle">Исследователь океана</p>
       </div>
       <button
-        onClick={handleAddPlaceClick}
+        onClick={props.onAddPlace}
         className="profile__add-button"
         type="button"
         aria-label="Добавить фото"
