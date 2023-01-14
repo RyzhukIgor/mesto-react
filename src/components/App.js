@@ -11,7 +11,6 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
-
   function handleEditAvatarClick () {
     setIsEditAvatarPopupOpen(true)
   }
@@ -24,6 +23,12 @@ function App() {
     setIsAddPlacePopupOpen(true)
   }
 
+  function closeAllPopups () {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  }
+
   return (
     <div className="page">
   <Header />
@@ -33,7 +38,13 @@ function App() {
   onEditAvatar = {handleEditAvatarClick}
   />
   <Footer /> 
-  <PopupWithForm isOpen = {isEditProfilePopupOpen} name="profile" title="Редактировать профиль" buttonText="Сохранить">
+  <PopupWithForm
+  isOpen = {isEditProfilePopupOpen}
+  name="profile"
+  title="Редактировать профиль" 
+  buttonText="Сохранить"
+  onClose = {closeAllPopups}
+  >
         <input
           id="input-name"
           type="text"
@@ -57,7 +68,13 @@ function App() {
         />
         <span className="popup__error description-name-error" />
   </PopupWithForm>
-  <PopupWithForm isOpen = {isAddPlacePopupOpen} name="add-image" title="Новое место" buttonText="Создать">
+  <PopupWithForm 
+  isOpen = {isAddPlacePopupOpen} 
+  name="add-image" 
+  title="Новое место" 
+  buttonText="Создать"
+  onClose = {closeAllPopups}
+  >
         <input
           id="image-name"
           type="text"
@@ -80,8 +97,18 @@ function App() {
         <span className="popup__error url-address-error" />
       </PopupWithForm>
   <ImagePopup />
-  <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" />
-  <PopupWithForm isOpen = {isEditAvatarPopupOpen} name="avatar" title="Обновить аватар" buttonText="Сохранить">
+  <PopupWithForm 
+  name="confirm" 
+  title="Вы уверены?" 
+  buttonText="Да" 
+  onClose = {closeAllPopups}/>
+  <PopupWithForm
+   isOpen = {isEditAvatarPopupOpen} 
+   name="avatar" 
+   title="Обновить аватар" 
+   buttonText="Сохранить"
+   onClose = {closeAllPopups}
+   >
         <input
           id="url-avatar"
           type="url"
