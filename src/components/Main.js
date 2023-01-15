@@ -1,24 +1,27 @@
 import { useEffect, useState } from "react";
 import apiConnect from "../utils/Api";
+import Card from './Card';
 
 export default function Main(props) {
   
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
   
 
     useEffect(() => { 
-      Promise.all([apiConnect.getUserInfoProfile()])
-    .then(([profileInfo]) => {
+      Promise.all([apiConnect.getUserInfoProfile(), apiConnect.getInitialCards()])
+    .then(([profileInfo, cards]) => {
       setUserName(profileInfo.name);
       setUserDescription(profileInfo.about);
       setUserAvatar(profileInfo.avatar);
+      setCards(cards);
     })
     .catch((err) => {
         console.log(err);
     });
-  });
+  }, []);
 
     return (
         <div className="content">
@@ -45,7 +48,16 @@ export default function Main(props) {
         aria-label="Добавить фото"
       />
     </section>
-    <section className="cards" />
+    <section className="cards">
+      {cards.map((card) =>
+      <Card key={card._id}
+       link={card.link}
+       name={card.name}
+        likes={card.likes.length}
+        
+        />
+      )}
+    </section>
   </div>
     )
 }

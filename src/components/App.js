@@ -119,8 +119,6 @@ function App() {
         />
         <span className="popup__error url-avatar-error" />
   </PopupWithForm>
-  <template className="cards-template" />
-  {/*  */}
     </div>
   );
 }
