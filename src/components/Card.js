@@ -1,10 +1,16 @@
 import React from "react";
 
 export default function Card(props) {
+
+    function handleClick() {
+        props.onCardClick(props.card);
+        console.log(props.card)
+    }
+
     return (
-        <article className="card">
+        <div className="card">
             <button type="button" className="card__delete" />
-            <img src={props.link} className="card__image" alt="" />
+            <img src={props.link} className="card__image" alt={props.name} onClick={handleClick}/>
             <div className="card__info">
                 <h2 className="card__description">{props.name}</h2>
                 <div className="card__like-group">
@@ -16,6 +22,6 @@ export default function Card(props) {
                     <span className="card__number-likes">{props.likes}</span>
                 </div>
             </div>
-        </article>
+        </div>
     );
 }

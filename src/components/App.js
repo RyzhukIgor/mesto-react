@@ -10,6 +10,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   function handleEditAvatarClick () {
     setIsEditAvatarPopupOpen(true)
@@ -27,6 +29,12 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false)
+  }
+
+  function handleCardClick(card){
+    setIsImagePopupOpen(true);
+    setSelectedCard(card);
   }
 
   return (
@@ -36,6 +44,7 @@ function App() {
   onEditProfile = {handleEditProfileClick} 
   onAddPlace = {handleAddPlaceClick}
   onEditAvatar = {handleEditAvatarClick}
+  onCardClick = {handleCardClick}
   />
   <Footer /> 
   <PopupWithForm
@@ -96,7 +105,10 @@ function App() {
         />
         <span className="popup__error url-address-error" />
       </PopupWithForm>
-  <ImagePopup />
+  <ImagePopup 
+  card={selectedCard} 
+  onClose={closeAllPopups} 
+  isOpen={isImagePopupOpen}/>
   <PopupWithForm 
   name="confirm" 
   title="Вы уверены?" 
