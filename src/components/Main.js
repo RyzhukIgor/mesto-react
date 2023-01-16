@@ -3,6 +3,7 @@ import apiConnect from "../utils/api";
 import Card from "./Card";
 
 export default function Main(props) {
+    
     const { onEditAvatar, onEditProfile, onAddPlace } = props;
     const [userName, setUserName] = useState("");
     const [userDescription, setUserDescription] = useState("");
