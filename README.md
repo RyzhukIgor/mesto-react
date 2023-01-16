@@ -4,5 +4,5 @@
 #### __Стек:__ :outbox_tray:
 html, css, javascript
 
-:open_file_folder:[Мой проект на GitHub Pages](https://ryzhukigor.github.io/mesto-react/)
+:open_file_folder:[Мой проект на GitHub Pages]([https://ryzhukigor.github.io/mesto-react/])
 
