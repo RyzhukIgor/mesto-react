@@ -10,7 +10,7 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
     }
-    //можно использовать async
+   
     getUserInfoProfile() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
