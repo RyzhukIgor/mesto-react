@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import apiConnect from "../utils/Api";
+import apiConnect from "../utils/api";
 import Card from "./Card";
 
 export default function Main(props) {
+    const { onEditAvatar, onEditProfile, onAddPlace } = props;
     const [userName, setUserName] = useState("");
     const [userDescription, setUserDescription] = useState("");
     const [userAvatar, setUserAvatar] = useState("");
@@ -27,7 +28,7 @@ export default function Main(props) {
     return (
         <div className="content">
             <section className="profile">
-                <div onClick={props.onEditAvatar} className="profile__image">
+                <div onClick={onEditAvatar} className="profile__image">
                     <img
                         src={userAvatar}
                         className="profile__avatar"
@@ -38,7 +39,7 @@ export default function Main(props) {
                     <div className="profile__edit">
                         <h1 className="profile__title">{userName}</h1>
                         <button
-                            onClick={props.onEditProfile}
+                            onClick={onEditProfile}
                             className="profile__editor"
                             type="button"
                             aria-label="Редактировать профиль"
@@ -47,7 +48,7 @@ export default function Main(props) {
                     <p className="profile__subtitle">{userDescription}</p>
                 </div>
                 <button
-                    onClick={props.onAddPlace}
+                    onClick={onAddPlace}
                     className="profile__add-button"
                     type="button"
                     aria-label="Добавить фото"
@@ -61,7 +62,7 @@ export default function Main(props) {
                         name={card.name}
                         likes={card.likes.length}
                         card={card}
-                        onCardClick = {props.onCardClick}
+                        onCardClick={props.onCardClick}
                     />
                 ))}
             </section>
