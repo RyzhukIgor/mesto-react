@@ -5,6 +5,8 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import apiConnect from "../utils/api";
+import CurrentUserContext from "../context/CurrentUserContext";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -12,6 +14,28 @@ function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
+
+    const [currentUser, setCurrentUser] = React.useState({});
+    const [cards, setCards] = React.useState([]);
+
+    React.useEffect(() => {
+        apiConnect.getUserInfoProfile()
+        .then((res) => {
+            setCurrentUser(res)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+        apiConnect.getInitialCards()
+        .then((res) => {
+            setCards(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+
+    }, [])
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
@@ -40,14 +64,30 @@ function App() {
         });
     }
 
+    function handleCardLike(card) {
+        const isLiked = card.likes.some(user => user._id === currentUser._id);
+        
+        // Отправляем запрос в API и получаем обновлённые данные карточки
+        apiConnect.changeLikeCardStatus(card._id, !isLiked)
+        .then((newCard) => {
+            setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+        })
+        .catch ((err) => {
+            console.log(err)
+        });
+    }
+
     return (
         <div className="page">
+            <CurrentUserContext.Provider value={currentUser}>
             <Header />
             <Main
                 onEditProfile={handleEditProfileClick}
                 onAddPlace={handleAddPlaceClick}
                 onEditAvatar={handleEditAvatarClick}
                 onCardClick={handleCardClick}
+                cards = {cards}
+                onCardLike={handleCardLike}
             />
             <Footer />
             <PopupWithForm
@@ -137,6 +177,7 @@ function App() {
                 />
                 <span className="popup__error url-avatar-error" />
             </PopupWithForm>
+            </CurrentUserContext.Provider>
         </div>
     );
 }

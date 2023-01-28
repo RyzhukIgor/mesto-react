@@ -1,43 +1,24 @@
-import { useEffect, useState } from "react";
-import apiConnect from "../utils/api.js";
+import { useContext, useEffect, useState } from "react";
 import Card from "./Card";
+import CurrentUserContext from "../context/CurrentUserContext.js";
 
 export default function Main(props) {
     const { onEditAvatar, onEditProfile, onAddPlace } = props;
-    const [userName, setUserName] = useState("");
-    const [userDescription, setUserDescription] = useState("");
-    const [userAvatar, setUserAvatar] = useState("");
-    const [cards, setCards] = useState([]);
-
-    useEffect(() => {
-        Promise.all([
-            apiConnect.getUserInfoProfile(),
-            apiConnect.getInitialCards(),
-        ])
-            .then(([profileInfo, cards]) => {
-                setUserName(profileInfo.name);
-                setUserDescription(profileInfo.about);
-                setUserAvatar(profileInfo.avatar);
-                setCards(cards);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+    const currentUser = useContext(CurrentUserContext);
 
     return (
         <div className="content">
             <section className="profile">
                 <div onClick={onEditAvatar} className="profile__image">
                     <img
-                        src={userAvatar}
+                        src={currentUser.avatar}
                         className="profile__avatar"
                         alt="фото Жак-Ив Кусто"
                     />
                 </div>
                 <div className="profile__info">
                     <div className="profile__edit">
-                        <h1 className="profile__title">{userName}</h1>
+                        <h1 className="profile__title">{currentUser.name}</h1>
                         <button
                             onClick={onEditProfile}
                             className="profile__editor"
@@ -45,7 +26,7 @@ export default function Main(props) {
                             aria-label="Редактировать профиль"
                         />
                     </div>
-                    <p className="profile__subtitle">{userDescription}</p>
+                    <p className="profile__subtitle">{currentUser.about}</p>
                 </div>
                 <button
                     onClick={onAddPlace}
@@ -55,14 +36,14 @@ export default function Main(props) {
                 />
             </section>
             <section className="cards">
-                {cards.map((card) => (
+                {props.cards.map((card) => (
                     <Card
                         key={card._id}
                         link={card.link}
                         name={card.name}
                         likes={card.likes.length}
                         card={card}
-                        onCardClick={props.onCardClick}
+                        onCardLike={props.onCardLike}
                     />
                 ))}
             </section>

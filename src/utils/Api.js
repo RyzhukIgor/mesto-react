@@ -59,7 +59,7 @@ class Api {
         });
     }
 
-    putLikeCard(cardId) {
+ /*   putLikeCard(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: "PUT",
             headers: this._headers,
@@ -75,7 +75,7 @@ class Api {
         }).then((res) => {
             return this._getResponse(res);
         });
-    }
+    } */
 
     changeAvatar(avatarLink) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
@@ -88,6 +88,24 @@ class Api {
             return this._getResponse(res);
         });
     }
+
+    changeLikeCardStatus (cardId, isLiked) {
+        if (isLiked) {
+            return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+                method: "PUT",
+                headers: this._headers,
+            }).then((res) => {
+                return this._getResponse(res);
+            });
+        } else {
+            return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+                method: "DELETE",
+                headers: this._headers,
+            }).then((res) => {
+                return this._getResponse(res);
+            });
+        }
+      }
 }
 
 const apiConnect = new Api({
