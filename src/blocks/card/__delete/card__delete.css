@@ -6,7 +6,8 @@
    border: none;
    padding: 0;
    position: absolute;
-   transform: translate(244px, 20px);
+   top: 20px;
+   right: 20px;
    min-width: 18px;
    min-height: 19px;
 

@@ -10,7 +10,7 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
     }
-   
+
     getUserInfoProfile() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
@@ -27,8 +27,6 @@ class Api {
         });
     }
 
-
-
     editUserProfile(userProfile) {
         console.log(userProfile);
         return fetch(`${this._baseUrl}/users/me`, {
@@ -40,11 +38,11 @@ class Api {
         });
     }
 
-    addNewCard({ name, link }) {
+    addNewCard(cardData) {
         return fetch(`${this._baseUrl}/cards`, {
             method: "POST",
             headers: this._headers,
-            body: JSON.stringify({ name, link }),
+            body: JSON.stringify({ name: cardData.title, link: cardData.link }),
         }).then((res) => {
             return this._getResponse(res);
         });
@@ -59,7 +57,7 @@ class Api {
         });
     }
 
- /*   putLikeCard(cardId) {
+    /*   putLikeCard(cardId) {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: "PUT",
             headers: this._headers,
@@ -89,7 +87,7 @@ class Api {
         });
     }
 
-    changeLikeCardStatus (cardId, isLiked) {
+    changeLikeCardStatus(cardId, isLiked) {
         if (isLiked) {
             return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
                 method: "PUT",
@@ -105,7 +103,7 @@ class Api {
                 return this._getResponse(res);
             });
         }
-      }
+    }
 }
 
 const apiConnect = new Api({
