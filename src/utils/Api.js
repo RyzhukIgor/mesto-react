@@ -27,14 +27,14 @@ class Api {
         });
     }
 
+
+
     editUserProfile(userProfile) {
+        console.log(userProfile);
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",
             headers: this._headers,
-            body: JSON.stringify({
-                name: userProfile.username,
-                about: userProfile.activity,
-            }),
+            body: JSON.stringify(userProfile),
         }).then((res) => {
             return this._getResponse(res);
         });
@@ -77,12 +77,12 @@ class Api {
         });
     } */
 
-    changeAvatar(avatarLink) {
+    changeAvatar(link) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({
-                avatar: avatarLink.avatar,
+                avatar: link,
             }),
         }).then((res) => {
             return this._getResponse(res);

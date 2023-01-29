@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import Card from "./Card";
 import CurrentUserContext from "../context/CurrentUserContext.js";
 
@@ -44,6 +44,8 @@ export default function Main(props) {
                         likes={card.likes.length}
                         card={card}
                         onCardLike={props.onCardLike}
+                        onCardDelete={props.onCardDelete}
+                        onCardClick ={ props.onCardClick}
                     />
                 ))}
             </section>
