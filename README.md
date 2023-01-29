@@ -1,9 +1,9 @@
-## Проект: ![alt tag](https://raw.githubusercontent.com/RyzhukIgor/mesto/b8f156a2da1e181af78ffff57a98a18185b7e9c0/images/logo.svg)  
+## Проект: Место 
 <img src="https://github.com/RyzhukIgor/mesto/blob/main/src/images/mesto.gif">  
 
 :open_file_folder:[Мой проект на GitHub Pages](https://ryzhukigor.github.io/mesto/)  
 
-## В данный момент проект портируется в React.js.  
+## Проект спортирован в React.js.  
 Mesto: интерактивная страница, в которой можно добавлять фотографии, удалять их и ставить лайки, вводить данные в валидируемую форму. Сейчас ведётся работа над реализацией загрузки данных пользователя, карточек и лайков с сервера. 
 
 ## :inbox_tray: __Стек:__ :outbox_tray:  
